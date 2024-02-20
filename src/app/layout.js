@@ -1,5 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/context/authContext";
+import { Toaster } from "react-hot-toast";
+import { ThemeModeScript } from "flowbite-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,7 +14,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <ThemeModeScript />
+      </head>
+      <body className={inter.className}>
+        <AuthProvider>
+          {children}
+          <Toaster
+            position={"top-right"}
+            toastOptions={{ className: "react-hot-toast" }}
+          />
+        </AuthProvider>
+      </body>
     </html>
   );
 }
